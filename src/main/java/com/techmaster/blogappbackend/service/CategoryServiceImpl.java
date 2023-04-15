@@ -5,6 +5,8 @@ import com.techmaster.blogappbackend.repository.BlogRepository;
 import com.techmaster.blogappbackend.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<CategoryDto> getCategoryMostUsed(int top) {
-        return blogRepository.getTopNUsedCategories(top);
+        Pageable pageable = PageRequest.of(0,top);
+        return blogRepository.getTopNUsedCategories(pageable);
     }
 }
