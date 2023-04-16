@@ -17,4 +17,6 @@ public interface BlogService {
     List<Blog> getBlogUsedCategory(String name);
 
     Blog getByIdAndSlug(int blogID, String blogSlug);
+
+    List<Blog> getAllBlog();
 }

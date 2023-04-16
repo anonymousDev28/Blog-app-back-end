@@ -1,11 +1,13 @@
 package com.techmaster.blogappbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -37,33 +39,34 @@ public class Blog {
     private String thumbnail;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private  LocalDate updatedAt;
 
     @Column(name = "pulished_at")
-    private LocalDateTime pulishedAt;
+    private  LocalDate pulishedAt;
 
     @Column(name = "status")
     private boolean status;
 //    @JsonIgnoreProperties(ignoreUnknown = true)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "blogs_categories",
             joinColumns = @JoinColumn(name = "blog_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
-
+    @JsonIgnore
     @OneToMany(mappedBy = "blog", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
     @PrePersist
     public void prePersist() {
-        createdAt = LocalDateTime.now();
+        createdAt =  LocalDateTime.now().toLocalDate();
         if(status) {
             pulishedAt = createdAt;
         }
@@ -71,7 +74,7 @@ public class Blog {
 
     @PreUpdate
     public void preUpdate() {
-        updatedAt = LocalDateTime.now();
+        updatedAt =  LocalDateTime.now().toLocalDate();
         if(status) {
             pulishedAt = updatedAt;
         }

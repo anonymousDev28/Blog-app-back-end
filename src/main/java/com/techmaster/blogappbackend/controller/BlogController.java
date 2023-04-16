@@ -26,10 +26,14 @@ public class BlogController {
     // get list controller have paging
     @GetMapping("blogs")
     public Page<Blog> getBlogs(
-            @RequestParam(value = "page",required = false) int pageValue,
-            @RequestParam(value = "pageSize",required = false)  int pageSizeValue
+            @RequestParam(value = "page",required = false,defaultValue = "1") int pageValue,
+            @RequestParam(value = "pageSize",required = false,defaultValue = "5")  int pageSizeValue
     ){
         return blogService.getBlogs(pageValue,pageSizeValue);
+    }
+    @GetMapping("blogsall")
+    public List<Blog> getAllBlog(){
+        return blogService.getAllBlog();
     }
     @GetMapping("search")
     public List<Blog> searchBlog(
@@ -44,12 +48,12 @@ public class BlogController {
         return categoryService.getCategory();
     }
 
-    @GetMapping("category/{top}")
-    public List<CategoryDto> getCategoryMostUsed(@PathVariable(name = "top") int top){
-        return categoryService.getCategoryMostUsed(top);
+    @GetMapping("category/top5")
+    public List<CategoryDto> getTop5CategoryMostUsed(){
+        return categoryService.getTop5CategoryMostUsed();
     }
     @GetMapping("category/{categoryName}")
-    public List<Blog> getBlogUsedCategory(@PathVariable(name = "categoryName") String name){
+    public List<Blog> getBlogUsedCategory(@PathVariable(value = "categoryName") String name){
         return blogService.getBlogUsedCategory(name);
     }
     @GetMapping("blogs/{blogId}/{blogSlug}")

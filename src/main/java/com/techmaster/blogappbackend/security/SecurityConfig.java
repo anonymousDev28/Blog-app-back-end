@@ -59,24 +59,26 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                     .authorizeHttpRequests()
-                    .requestMatchers(PUBLIC).permitAll()
-                .requestMatchers("/search").hasAnyRole("USER","ADMIN")
-                    .requestMatchers("/blogs").hasAnyRole("USER","ADMIN")
-                    .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
-                    .requestMatchers("/admin").hasRole("ADMIN")
-                    .requestMatchers("/author").hasAuthority("ROLE_AUTHOR")
-                    .anyRequest().authenticated()
-                .and()
-                    // không tạo ra session khi đăng nhập
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(customAuthenticationEntryPoint)
-                    .accessDeniedHandler(customAccessDeniedHandler)
-                .and()
-                    .authenticationProvider(authenticationProvider())
-                    .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+//                    .requestMatchers(PUBLIC).permitAll()
+                .anyRequest().permitAll();
+//                    .requestMatchers("/").permitAll()
+//                .requestMatchers("/search").hasAnyRole("USER","ADMIN")
+//                    .requestMatchers("/blogs").hasAnyRole("USER","ADMIN")
+//                    .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
+//                    .requestMatchers("/admin").hasRole("ADMIN")
+//                    .requestMatchers("/author").hasAuthority("ROLE_AUTHOR")
+//                    .anyRequest().authenticated()
+//                .and()
+//                    // không tạo ra session khi đăng nhập
+//                    .sessionManagement()
+//                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                    .exceptionHandling()
+//                    .authenticationEntryPoint(customAuthenticationEntryPoint)
+//                    .accessDeniedHandler(customAccessDeniedHandler)
+//                .and()
+//                    .authenticationProvider(authenticationProvider())
+//                    .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

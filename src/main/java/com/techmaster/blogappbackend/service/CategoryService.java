@@ -7,5 +7,5 @@ import java.util.List;
 public interface CategoryService {
     List<CategoryDto> getCategory();
 
-    List<CategoryDto> getCategoryMostUsed(int top);
+    List<CategoryDto> getTop5CategoryMostUsed();
 }

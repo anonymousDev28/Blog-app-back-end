@@ -3,6 +3,7 @@ package com.techmaster.blogappbackend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -28,7 +29,7 @@ public class Image {
 
 
     @Column(name = "created_at")
-    private LocalDateTime created_at;
+    private LocalDate created_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -37,6 +38,6 @@ public class Image {
 
     @PrePersist
     public void prePersist() {
-        created_at = LocalDateTime.now().minusMonths(2);
+        created_at = LocalDateTime.now().toLocalDate();
     }
 }

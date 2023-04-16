@@ -37,4 +37,9 @@ public class BlogServiceImpl implements BlogService{
     public Blog getByIdAndSlug(int blogID, String blogSlug) {
         return blogRepository.findByIdAndSlug(blogID,blogSlug);
     }
+
+    @Override
+    public List<Blog> getAllBlog() {
+        return blogRepository.findAll();
+    }
 }
