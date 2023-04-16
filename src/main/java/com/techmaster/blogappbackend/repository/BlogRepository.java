@@ -15,12 +15,12 @@ public interface BlogRepository extends JpaRepository<Blog, String> {
     @Query("SELECT b FROM Blog b WHERE b.title LIKE CONCAT('%', :keyword, '%')")
     List<Blog> findByTitleContainingJPQL(@Param("keyword") String keyword);
 
-    @Query("SELECT NEW com.techmaster.blogappbackend.dto.CategoryDto(c.id, c.name, COUNT(b)) " +
+    @Query("SELECT NEW com.techmaster.blogappbackend.dto.CategoryDto(c.id, c.name,COUNT(b)) " +
             "FROM Blog b " +
             "JOIN b.categories c " +
             "GROUP BY c.id, c.name " +
             "ORDER BY COUNT(b) DESC")
-    List<CategoryDto> getTop5UsedCategories();
+    List<CategoryDto> getTop5UsedCategories(Pageable pageable);
 
     @Query(value = "SELECT b.* FROM blog b INNER JOIN blogs_categories bc ON b.id = bc.blog_id INNER JOIN category c ON bc.category_id = c.id WHERE c.name = ?", nativeQuery = true)
     List<Blog> findByCategoriesNative(String name);

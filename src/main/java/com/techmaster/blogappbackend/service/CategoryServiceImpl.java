@@ -40,7 +40,8 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<CategoryDto> getTop5CategoryMostUsed() {
-        return blogRepository.getTop5UsedCategories();
+        // sử dụng paging thay cho limit vì JPQL không hỗ trợ
+        return blogRepository.getTop5UsedCategories(PageRequest.of(0,5));
     }
 
 
