@@ -26,7 +26,7 @@ public class BlogController {
     // get list controller have paging
     @GetMapping("blogs")
     public Page<Blog> getBlogs(
-            @RequestParam(value = "page",required = false,defaultValue = "1") int pageValue,
+            @RequestParam(value = "page",required = false,defaultValue = "0") int pageValue,
             @RequestParam(value = "pageSize",required = false,defaultValue = "5")  int pageSizeValue
     ){
         return blogService.getBlogs(pageValue,pageSizeValue);
@@ -37,7 +37,7 @@ public class BlogController {
     }
     @GetMapping("search")
     public List<Blog> searchBlog(
-            @RequestParam(value = "term") String termValue
+            @RequestParam(value = "term",defaultValue = "#$") String termValue
     ){
         return blogService
                 .getBlogContain(termValue);
